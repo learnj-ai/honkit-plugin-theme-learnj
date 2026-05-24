@@ -61,7 +61,7 @@
             {% block book_inner %}
                 {% include "website/header.html" %}
 
-                <div class="flex-1 px-4 py-6 lg:px-8" tabindex="-1" role="main">
+                <div class="flex-1 px-4 py-6 pb-20 lg:px-8" tabindex="-1" role="main">
                     <div class="mx-auto max-w-4xl">
                         {% block search_results %}
                         <div id="book-search-results">
@@ -89,6 +89,8 @@
                         {% endblock %}
                     </div>
                 </div>
+
+                {% include "website/footer.html" %}
             {% endblock %}
 
             {% block book_navigation %}

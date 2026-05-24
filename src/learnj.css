@@ -252,9 +252,14 @@
   @apply learnj-page-nav right-6;
 }
 
+.learnj-footer a {
+  @apply no-underline;
+}
+
 @media print {
   .learnj-sidebar,
   .learnj-header,
+  .learnj-footer,
   .learnj-page-nav,
   #book-search-input {
     display: none !important;
