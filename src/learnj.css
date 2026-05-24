@@ -141,13 +141,34 @@
   @apply absolute z-50 mt-1 max-h-80 w-full overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md;
 }
 
+/* Images and diagrams */
+.markdown-section img {
+  @apply mx-auto block h-auto max-w-full rounded-md;
+}
+
+.markdown-section figure {
+  @apply my-6 text-center;
+}
+
+.markdown-section figure img {
+  @apply mx-auto;
+}
+
+.markdown-section figure figcaption {
+  @apply mt-2 text-sm text-muted-foreground;
+}
+
+.markdown-section p:has(> img:only-child) {
+  @apply text-center;
+}
+
 /* Mermaid diagram container */
 .mermaid {
-  @apply my-6 rounded-lg border bg-muted/50 p-4 text-center;
+  @apply mx-auto my-6 w-fit max-w-full rounded-lg border bg-muted/50 p-4 text-center;
 }
 
 .mermaid svg {
-  @apply mx-auto max-w-full;
+  @apply mx-auto block max-w-full;
 }
 
 /* Prevent Mermaid inline style leakage into page text */

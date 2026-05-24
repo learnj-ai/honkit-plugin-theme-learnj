@@ -147,6 +147,25 @@ module.exports = {
             "thead th": {
               backgroundColor: theme("colors.muted.DEFAULT"),
             },
+            img: {
+              marginLeft: "auto",
+              marginRight: "auto",
+              display: "block",
+              maxWidth: "100%",
+              height: "auto",
+              borderRadius: theme("borderRadius.md"),
+            },
+            figure: {
+              textAlign: "center",
+              marginTop: "1.5em",
+              marginBottom: "1.5em",
+            },
+            figcaption: {
+              textAlign: "center",
+              color: theme("colors.muted.foreground"),
+              fontSize: "0.875em",
+              marginTop: "0.5em",
+            },
           },
         },
         invert: {
