@@ -1,5 +1,7 @@
 # Code blocks
 
+Code fences are rendered as **shadcn-style panels** (inspired by [shadcnblocks code-example6](https://www.shadcnblocks.com/block/code-example6)): a card shell with a language label, **Copy** button, and a dark syntax-highlighted editor area.
+
 The **highlight** plugin provides syntax highlighting for fenced code blocks.
 
 ## JavaScript

@@ -123,17 +123,13 @@ module.exports = {
             "code::before": { content: '""' },
             "code::after": { content: '""' },
             pre: {
-              color: theme("colors.foreground"),
-              backgroundColor: theme("colors.muted.DEFAULT"),
-              border: `1px solid ${theme("colors.border")}`,
-              borderRadius: theme("borderRadius.lg"),
+              marginTop: "1.5em",
+              marginBottom: "1.5em",
             },
             "pre code": {
-              color: "inherit",
               backgroundColor: "transparent",
               padding: "0",
               fontWeight: "400",
-              fontSize: "inherit",
             },
             blockquote: {
               borderLeftColor: theme("colors.primary.DEFAULT"),

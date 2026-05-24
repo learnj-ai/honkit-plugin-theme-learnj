@@ -177,73 +177,113 @@
   display: none !important;
 }
 
-/* Code blocks — prose + highlight.js */
-.markdown-section pre {
-  @apply overflow-x-auto font-mono text-sm leading-relaxed;
-}
-
+/* Inline code */
 .markdown-section :not(pre) > code {
   @apply rounded bg-muted px-1.5 py-0.5 font-mono text-sm font-medium text-foreground;
 }
 
-.markdown-section pre code {
-  @apply bg-transparent p-0 font-normal text-inherit;
+/* Code blocks — shadcn-style card panel (code-example6 inspired) */
+.markdown-section .learnj-codeblock {
+  @apply my-6 overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm;
 }
 
-/* Tomorrow hljs uses #fff background; use transparent on our muted/secondary pre */
-.markdown-section pre .hljs,
-.markdown-section pre code.hljs {
-  background: transparent !important;
+.markdown-section .learnj-codeblock-header {
+  @apply flex items-center justify-between gap-3 border-b border-border bg-muted/40 px-4 py-2.5;
 }
 
-.dark .markdown-section pre {
-  @apply bg-secondary;
+.markdown-section .learnj-codeblock-label {
+  @apply font-mono text-xs font-medium tracking-wide text-muted-foreground;
 }
 
-.dark .markdown-section pre .hljs,
-.dark .markdown-section pre code.hljs {
+.markdown-section .learnj-codeblock-copy {
+  @apply learnj-btn inline-flex h-8 shrink-0 items-center gap-1.5 rounded-md border-0 bg-transparent px-2.5 text-xs font-medium text-muted-foreground hover:bg-accent hover:text-foreground;
+}
+
+.markdown-section .learnj-codeblock-copy.is-copied {
+  @apply text-foreground;
+}
+
+.markdown-section .learnj-codeblock-copy svg {
+  @apply h-3.5 w-3.5 shrink-0;
+}
+
+.markdown-section .learnj-codeblock-body {
+  @apply overflow-x-auto bg-zinc-950 text-zinc-100;
+}
+
+.markdown-section .learnj-codeblock-body pre {
+  @apply m-0 overflow-x-auto rounded-none border-0 bg-transparent p-4 shadow-none;
+  color: inherit;
+}
+
+.markdown-section .learnj-codeblock-body pre code {
+  @apply bg-transparent p-0 font-mono text-[0.8125rem] font-normal leading-relaxed text-inherit;
+}
+
+/* Syntax highlighting inside dark code panel */
+.markdown-section .learnj-codeblock-body .hljs,
+.markdown-section .learnj-codeblock-body pre .hljs,
+.markdown-section .learnj-codeblock-body code.hljs {
   color: #abb2bf;
   background: transparent !important;
 }
 
-.dark .markdown-section pre .hljs-comment,
-.dark .markdown-section pre code.hljs .hljs-comment {
+.markdown-section .learnj-codeblock-body .hljs-comment {
   color: #5c6370;
 }
 
-.dark .markdown-section pre .hljs-keyword,
-.dark .markdown-section pre code.hljs .hljs-keyword {
+.markdown-section .learnj-codeblock-body .hljs-keyword {
   color: #c678dd;
 }
 
-.dark .markdown-section pre .hljs-string,
-.dark .markdown-section pre code.hljs .hljs-string {
+.markdown-section .learnj-codeblock-body .hljs-string {
   color: #98c379;
 }
 
-.dark .markdown-section pre .hljs-number,
-.dark .markdown-section pre code.hljs .hljs-number {
+.markdown-section .learnj-codeblock-body .hljs-number,
+.markdown-section .learnj-codeblock-body .hljs-literal {
   color: #d19a66;
 }
 
-.dark .markdown-section pre .hljs-built_in,
-.dark .markdown-section pre code.hljs .hljs-built_in {
+.markdown-section .learnj-codeblock-body .hljs-built_in {
   color: #e6c07b;
 }
 
-.dark .markdown-section pre .hljs-title,
-.dark .markdown-section pre code.hljs .hljs-title {
+.markdown-section .learnj-codeblock-body .hljs-title,
+.markdown-section .learnj-codeblock-body .hljs-title.class_ {
   color: #61afef;
 }
 
-.dark .markdown-section pre .hljs-attr,
-.dark .markdown-section pre code.hljs .hljs-attr {
-  color: #d19a66;
+.markdown-section .learnj-codeblock-body .hljs-attr,
+.markdown-section .learnj-codeblock-body .hljs-variable,
+.markdown-section .learnj-codeblock-body .hljs-template-variable {
+  color: #e06c75;
 }
 
-.dark .markdown-section pre .hljs-literal,
-.dark .markdown-section pre code.hljs .hljs-literal {
+.markdown-section .learnj-codeblock-body .hljs-function,
+.markdown-section .learnj-codeblock-body .hljs-params {
+  color: #abb2bf;
+}
+
+.markdown-section .learnj-codeblock-body .hljs-tag {
+  color: #e06c75;
+}
+
+.markdown-section .learnj-codeblock-body .hljs-name {
+  color: #e06c75;
+}
+
+.markdown-section .learnj-codeblock-body .hljs-meta {
   color: #56b6c2;
+}
+
+/* Unwrapped fallback (before JS runs or print) */
+.markdown-section pre:not(.learnj-codeblock-body pre) {
+  @apply overflow-x-auto rounded-xl border border-border bg-zinc-950 p-4 font-mono text-sm leading-relaxed text-zinc-100 shadow-sm;
+}
+
+.markdown-section pre:not(.learnj-codeblock-body pre) code {
+  @apply bg-transparent p-0 font-normal text-inherit;
 }
 
 /* Font settings plugin overrides */
@@ -282,8 +322,13 @@
   .learnj-header,
   .learnj-footer,
   .learnj-page-nav,
+  .learnj-codeblock-header,
   #book-search-input {
     display: none !important;
+  }
+
+  .markdown-section .learnj-codeblock {
+    @apply break-inside-avoid;
   }
 
   .learnj-main {

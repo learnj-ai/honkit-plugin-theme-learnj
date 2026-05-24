@@ -4,6 +4,43 @@
   var STORAGE_SIDEBAR = "learnj-sidebar-open";
   var STORAGE_THEME = "learnj-theme";
 
+  var ICON_COPY =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
+  var ICON_CHECK =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+
+  var LANG_LABELS = {
+    bash: "Bash",
+    sh: "Shell",
+    shell: "Shell",
+    zsh: "Zsh",
+    javascript: "JavaScript",
+    js: "JavaScript",
+    typescript: "TypeScript",
+    ts: "TypeScript",
+    json: "JSON",
+    html: "HTML",
+    xml: "XML",
+    css: "CSS",
+    scss: "SCSS",
+    python: "Python",
+    py: "Python",
+    java: "Java",
+    kotlin: "Kotlin",
+    go: "Go",
+    rust: "Rust",
+    rs: "Rust",
+    sql: "SQL",
+    yaml: "YAML",
+    yml: "YAML",
+    markdown: "Markdown",
+    md: "Markdown",
+    dockerfile: "Dockerfile",
+    docker: "Docker",
+    nginx: "Nginx",
+    graphql: "GraphQL",
+  };
+
   function ready(fn) {
     if (document.readyState !== "loading") {
       fn();
@@ -64,6 +101,132 @@
     setTheme(!document.documentElement.classList.contains("dark"));
   }
 
+  function formatLanguage(lang) {
+    if (!lang) return "Code";
+    var key = lang.toLowerCase().replace(/^lang-/, "");
+    if (LANG_LABELS[key]) return LANG_LABELS[key];
+    return key
+      .split(/[-_]+/)
+      .map(function (part) {
+        return part.charAt(0).toUpperCase() + part.slice(1);
+      })
+      .join(" ");
+  }
+
+  function getLanguageFromPre(pre) {
+    var code = pre.querySelector("code");
+    if (!code || !code.className) return "";
+    var match = code.className.match(/\blang(?:uage)?-([^\s]+)/i);
+    if (match) return match[1];
+    var hljsMatch = code.className.match(/\bhljs-([^\s]+)/);
+    return hljsMatch ? hljsMatch[1] : "";
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      var textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        resolve();
+      } catch (err) {
+        document.body.removeChild(textarea);
+        reject(err);
+      }
+    });
+  }
+
+  function setCopyButtonState(btn, copied) {
+    var label = btn.querySelector(".learnj-codeblock-copy-label");
+    var icon = btn.querySelector(".learnj-codeblock-copy-icon");
+    if (copied) {
+      btn.classList.add("is-copied");
+      if (icon) icon.innerHTML = ICON_CHECK;
+      if (label) label.textContent = "Copied";
+      btn.setAttribute("aria-label", "Copied");
+    } else {
+      btn.classList.remove("is-copied");
+      if (icon) icon.innerHTML = ICON_COPY;
+      if (label) label.textContent = "Copy";
+      btn.setAttribute("aria-label", "Copy code");
+    }
+  }
+
+  function enhanceCodeBlocks(root) {
+    root = root || document;
+    var sections = root.querySelectorAll(".markdown-section");
+    sections.forEach(function (section) {
+      section.querySelectorAll("pre").forEach(function (pre) {
+        if (pre.closest(".learnj-codeblock")) return;
+
+        var code = pre.querySelector("code");
+        var lang = getLanguageFromPre(pre);
+
+        var block = document.createElement("div");
+        block.className = "learnj-codeblock";
+
+        var header = document.createElement("div");
+        header.className = "learnj-codeblock-header";
+
+        var langLabel = document.createElement("span");
+        langLabel.className = "learnj-codeblock-label";
+        langLabel.textContent = formatLanguage(lang);
+
+        var copyBtn = document.createElement("button");
+        copyBtn.type = "button";
+        copyBtn.className = "learnj-codeblock-copy";
+        copyBtn.setAttribute("aria-label", "Copy code");
+        copyBtn.innerHTML =
+          '<span class="learnj-codeblock-copy-icon" aria-hidden="true">' +
+          ICON_COPY +
+          '</span><span class="learnj-codeblock-copy-label">Copy</span>';
+
+        var body = document.createElement("div");
+        body.className = "learnj-codeblock-body";
+
+        var parent = pre.parentNode;
+        parent.insertBefore(block, pre);
+        header.appendChild(langLabel);
+        header.appendChild(copyBtn);
+        block.appendChild(header);
+        body.appendChild(pre);
+        block.appendChild(body);
+
+        copyBtn.addEventListener("click", function () {
+          var text = code ? code.textContent : pre.textContent;
+          copyText(text)
+            .then(function () {
+              setCopyButtonState(copyBtn, true);
+              window.setTimeout(function () {
+                setCopyButtonState(copyBtn, false);
+              }, 2000);
+            })
+            .catch(function () {});
+        });
+      });
+    });
+  }
+
+  function initCodeBlocks() {
+    enhanceCodeBlocks(document);
+    if (typeof gitbook !== "undefined") {
+      gitbook.push(function () {
+        gitbook.events.bind("page.change", function () {
+          enhanceCodeBlocks(document);
+        });
+      });
+    }
+  }
+
   ready(function () {
     var app = document.getElementById("learnj-app");
     if (app) {
@@ -107,5 +270,7 @@
         setSidebarOpen(false);
       }
     });
+
+    initCodeBlocks();
   });
 })();
