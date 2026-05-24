@@ -1,0 +1,74 @@
+{
+  "name": "honkit-plugin-theme-learnj",
+  "version": "1.0.0",
+  "description": "LearnJ HonKit theme — Tailwind CSS + shadcn/ui design system",
+  "main": "./index.js",
+  "files": [
+    "index.js",
+    "_assets",
+    "_i18n",
+    "_layouts"
+  ],
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/learnj.css -o ./_assets/website/learnj.css --minify",
+    "build": "npm run build:css",
+    "watch": "tailwindcss -i ./src/learnj.css -o ./_assets/website/learnj.css --watch",
+    "prepublishOnly": "npm run build",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "honkit",
+    "gitbook",
+    "theme",
+    "learnj",
+    "tailwind",
+    "shadcn",
+    "documentation"
+  ],
+  "author": "LearnJ",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/learnj-ai/honkit-plugin-theme-learnj.git"
+  },
+  "bugs": {
+    "url": "https://github.com/learnj-ai/honkit-plugin-theme-learnj/issues"
+  },
+  "homepage": "https://github.com/learnj-ai/honkit-plugin-theme-learnj#readme",
+  "engines": {
+    "honkit": ">=5.0.0",
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "honkit": {
+    "properties": {
+      "showLevel": {
+        "type": "boolean",
+        "title": "Show level indicator in TOC",
+        "default": false
+      },
+      "logo": {
+        "type": "string",
+        "title": "Logo URL for sidebar header"
+      },
+      "logoText": {
+        "type": "string",
+        "title": "Text shown next to logo",
+        "default": "LearnJ"
+      },
+      "githubUrl": {
+        "type": "string",
+        "title": "GitHub repository URL"
+      }
+    }
+  }
+}

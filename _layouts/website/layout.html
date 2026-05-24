@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📘</text></svg>" type="image/svg+xml">
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ "learnj.css"|resolveAsset }}">
+    {{ super() }}
+    {% for type, style in config.styles %}
+        {% if fileExists(style) and type == "website" %}
+        <link rel="stylesheet" href="{{ style|resolveFile }}">
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block body %}{% endblock %}

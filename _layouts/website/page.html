@@ -1,0 +1,101 @@
+{% extends "./layout.html" %}
+
+{% block title %}{{ page.title }} · {{ super() }}{% endblock %}
+
+{% block description %}{{ page.description }}{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    {% if page.next and page.next.path %}
+    <link rel="next" href="{{ page.next.path|resolveFile }}" />
+    {% endif %}
+    {% if page.previous and page.previous.path %}
+    <link rel="prev" href="{{ page.previous.path|resolveFile }}" />
+    {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ "learnj.js"|resolveAsset }}"></script>
+    {% for resource in plugins.resources.js %}
+        {% if resource.url %}
+        <script src="{{ resource.url }}"></script>
+        {% else %}
+        <script src="{{ resource.path|resolveAsset }}"></script>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block body %}
+{% set themeConfig = config.pluginsConfig['theme-learnj'] or {} %}
+<div id="learnj-app" class="learnj-cloak flex min-h-screen">
+    <div id="learnj-sidebar-backdrop" class="learnj-sidebar-backdrop hidden" aria-hidden="true"></div>
+
+    <aside id="learnj-sidebar" class="learnj-sidebar fixed inset-y-0 left-0 z-50 flex w-[280px] max-w-[85vw] flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-transform duration-200 -translate-x-full lg:static lg:translate-x-0">
+        <div class="flex h-14 shrink-0 items-center gap-2 border-b border-sidebar-border">
+            <a href="{{ "/"|resolveFile }}" class="flex items-center gap-2 px-4 font-semibold tracking-tight transition-opacity hover:opacity-80">
+                {% if themeConfig.logo %}
+                <img src="{{ themeConfig.logo }}" alt="" class="h-8 w-8 rounded-md object-contain" />
+                {% else %}
+                <span class="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-sm font-bold text-primary-foreground">LJ</span>
+                {% endif %}
+                <span class="truncate text-sm">{{ themeConfig.logoText or config.title }}</span>
+            </a>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-3">
+            {% block book_sidebar %}
+                {% block search_input %}{% endblock %}
+                {% block book_summary %}
+                    {% include "website/summary.html" %}
+                {% endblock %}
+            {% endblock %}
+        </div>
+    </aside>
+
+    <main class="learnj-main flex min-h-screen min-w-0 flex-1 flex-col">
+        {% block book_body %}
+            {% block book_inner %}
+                {% include "website/header.html" %}
+
+                <div class="flex-1 px-4 py-6 lg:px-8" tabindex="-1" role="main">
+                    <div class="mx-auto max-w-4xl">
+                        {% block search_results %}
+                            <article class="markdown-section prose prose-slate dark:prose-invert max-w-none">
+                            {% block page %}
+                                {{ page.content|safe }}
+                            {% endblock %}
+                            </article>
+                        {% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
+
+            {% block book_navigation %}
+                {% if page.previous and page.previous.path %}
+                <a href="{{ page.previous.path|resolveFile }}{{ page.previous.anchor }}"
+                   class="learnj-page-nav-prev"
+                   aria-label="Previous page: {{ page.previous.title }}"
+                   title="{{ page.previous.title }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </a>
+                {% endif %}
+                {% if page.next and page.next.path %}
+                <a href="{{ page.next.path|resolveFile }}{{ page.next.anchor }}"
+                   class="learnj-page-nav-next"
+                   aria-label="Next page: {{ page.next.title }}"
+                   title="{{ page.next.title }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </a>
+                {% endif %}
+            {% endblock %}
+        {% endblock %}
+    </main>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({{ template.getJSContext()|dump|safe }});
+        });
+    </script>
+</div>
+{% endblock %}
