@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "honkit": "^6.2.0",
+    "honkit-plugin-mermaid-md-adoc": "^0.0.8",
     "honkit-plugin-theme-learnj": "file:.."
   }
 }

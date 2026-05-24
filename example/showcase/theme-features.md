@@ -13,6 +13,10 @@ LearnJ replaces GitBook's default chrome with a modern documentation shell.
 
 Click the sun/moon control in the header. The choice is stored in `localStorage` under `learnj-theme`.
 
+## Mermaid diagrams
+
+Fenced blocks tagged `mermaid` are **not** wrapped as code panels. They render in a centered, full-width card with horizontal scroll for wide architecture diagrams. Use **View full size** or click the diagram to open a lightbox.
+
 ## Search
 
 LearnJ includes search UI and scripts compatible with the `lunr` indexer. In `book.json`, disable the default search plugin (`-search`) and enable `lunr` — the theme ships the markup and JavaScript so you avoid template conflicts with custom themes.

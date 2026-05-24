@@ -12,4 +12,5 @@
 
 * [Typography](showcase/typography.md)
 * [Code blocks](showcase/code-blocks.md)
+* [Diagrams](showcase/diagrams.md)
 * [Theme features](showcase/theme-features.md)

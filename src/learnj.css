@@ -162,19 +162,69 @@
   @apply text-center;
 }
 
-/* Mermaid diagram container */
-.mermaid {
-  @apply mx-auto my-6 w-fit max-w-full rounded-lg border bg-muted/50 p-4 text-center;
+/* Mermaid diagrams — architecture drawings, not code blocks */
+.markdown-section pre:has(> code.lang-mermaid),
+.markdown-section pre:has(> code.language-mermaid),
+.markdown-section pre.mermaid {
+  @apply mx-auto my-8 max-w-full overflow-x-auto rounded-lg border border-border bg-background p-4 text-center font-sans text-sm text-muted-foreground;
 }
 
-.mermaid svg {
-  @apply mx-auto block max-w-full;
+.markdown-section .learnj-mermaid {
+  @apply my-8 flex w-full flex-col items-center;
+}
+
+.markdown-section .learnj-mermaid-toolbar {
+  @apply mb-2 flex w-full justify-end;
+}
+
+.markdown-section .learnj-mermaid-expand {
+  @apply learnj-btn h-8 gap-1.5 px-3 text-xs;
+}
+
+.markdown-section .learnj-mermaid-canvas {
+  @apply flex w-full justify-center overflow-x-auto rounded-xl border border-border bg-background p-4 shadow-sm sm:p-6;
+}
+
+.markdown-section .learnj-mermaid .mermaid {
+  @apply m-0 w-full max-w-none cursor-zoom-in p-0 text-center;
+}
+
+.markdown-section .learnj-mermaid .mermaid svg {
+  @apply mx-auto block h-auto w-full max-w-full;
+  min-width: min(100%, 480px);
 }
 
 /* Prevent Mermaid inline style leakage into page text */
 .markdown-section > style,
 .markdown-section style[data-mermaid] {
   display: none !important;
+}
+
+/* Full-size diagram lightbox */
+.learnj-mermaid-lightbox {
+  @apply fixed inset-0 z-[100] flex items-center justify-center bg-background/90 p-4 backdrop-blur-sm;
+}
+
+.learnj-mermaid-lightbox-inner {
+  @apply relative max-h-[92vh] max-w-[min(96vw,1400px)] overflow-auto rounded-xl border border-border bg-card p-6 shadow-xl;
+}
+
+.learnj-mermaid-lightbox-inner .mermaid {
+  @apply w-full p-0;
+}
+
+.learnj-mermaid-lightbox-inner .mermaid svg {
+  @apply mx-auto block h-auto max-w-none;
+  width: auto !important;
+  min-width: min(90vw, 1200px);
+}
+
+.learnj-mermaid-lightbox-close {
+  @apply absolute right-3 top-3 z-10 h-9 w-9 text-lg;
+}
+
+body.learnj-mermaid-lightbox-open {
+  @apply overflow-hidden;
 }
 
 /* Inline code */
@@ -277,8 +327,8 @@
   color: #56b6c2;
 }
 
-/* Unwrapped fallback (before JS runs or print) */
-.markdown-section pre:not(.learnj-codeblock-body pre) {
+/* Unwrapped fallback (before JS runs or print) — exclude mermaid source */
+.markdown-section pre:not(.learnj-codeblock-body pre):not(:has(> code.lang-mermaid)):not(:has(> code.language-mermaid)):not(.mermaid) {
   @apply overflow-x-auto rounded-xl border border-border bg-zinc-950 p-4 font-mono text-sm leading-relaxed text-zinc-100 shadow-sm;
 }
 
@@ -323,8 +373,13 @@
   .learnj-footer,
   .learnj-page-nav,
   .learnj-codeblock-header,
+  .learnj-mermaid-toolbar,
   #book-search-input {
     display: none !important;
+  }
+
+  .markdown-section .learnj-mermaid-canvas {
+    @apply overflow-visible border-0 shadow-none;
   }
 
   .markdown-section .learnj-codeblock {

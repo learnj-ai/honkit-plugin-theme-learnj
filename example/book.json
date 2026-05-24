@@ -8,6 +8,7 @@
     "lunr",
     "highlight",
     "fontsettings",
+    "mermaid-md-adoc",
     "theme-learnj"
   ],
   "pluginsConfig": {
