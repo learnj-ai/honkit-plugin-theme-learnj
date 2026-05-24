@@ -1,0 +1,30 @@
+{
+  "title": "LearnJ Theme",
+  "description": "Example book demonstrating the LearnJ HonKit theme",
+  "author": "LearnJ",
+  "plugins": [
+    "-theme-default",
+    "-search",
+    "-lunr",
+    "highlight",
+    "fontsettings",
+    "theme-learnj"
+  ],
+  "pluginsConfig": {
+    "theme-learnj": {
+      "logoText": "LearnJ Theme",
+      "githubUrl": "https://github.com/learnj-ai/honkit-plugin-theme-learnj",
+      "showLevel": false
+    },
+    "fontsettings": {
+      "theme": "white",
+      "family": "sans",
+      "size": 2
+    }
+  },
+  "links": {
+    "sidebar": {
+      "npm package": "https://www.npmjs.com/package/honkit-plugin-theme-learnj"
+    }
+  }
+}

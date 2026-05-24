@@ -1,3 +1,5 @@
+@import "./highlight-markdown.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -154,13 +156,73 @@
   display: none !important;
 }
 
-/* Syntax highlighting (honkit highlight plugin) */
+/* Code blocks — prose + highlight.js */
 .markdown-section pre {
-  @apply overflow-x-auto;
+  @apply overflow-x-auto font-mono text-sm leading-relaxed;
 }
 
-.markdown-section .hljs {
-  @apply bg-transparent;
+.markdown-section :not(pre) > code {
+  @apply rounded bg-muted px-1.5 py-0.5 font-mono text-sm font-medium text-foreground;
+}
+
+.markdown-section pre code {
+  @apply bg-transparent p-0 font-normal text-inherit;
+}
+
+/* Tomorrow hljs uses #fff background; use transparent on our muted/secondary pre */
+.markdown-section pre .hljs,
+.markdown-section pre code.hljs {
+  background: transparent !important;
+}
+
+.dark .markdown-section pre {
+  @apply bg-secondary;
+}
+
+.dark .markdown-section pre .hljs,
+.dark .markdown-section pre code.hljs {
+  color: #abb2bf;
+  background: transparent !important;
+}
+
+.dark .markdown-section pre .hljs-comment,
+.dark .markdown-section pre code.hljs .hljs-comment {
+  color: #5c6370;
+}
+
+.dark .markdown-section pre .hljs-keyword,
+.dark .markdown-section pre code.hljs .hljs-keyword {
+  color: #c678dd;
+}
+
+.dark .markdown-section pre .hljs-string,
+.dark .markdown-section pre code.hljs .hljs-string {
+  color: #98c379;
+}
+
+.dark .markdown-section pre .hljs-number,
+.dark .markdown-section pre code.hljs .hljs-number {
+  color: #d19a66;
+}
+
+.dark .markdown-section pre .hljs-built_in,
+.dark .markdown-section pre code.hljs .hljs-built_in {
+  color: #e6c07b;
+}
+
+.dark .markdown-section pre .hljs-title,
+.dark .markdown-section pre code.hljs .hljs-title {
+  color: #61afef;
+}
+
+.dark .markdown-section pre .hljs-attr,
+.dark .markdown-section pre code.hljs .hljs-attr {
+  color: #d19a66;
+}
+
+.dark .markdown-section pre .hljs-literal,
+.dark .markdown-section pre code.hljs .hljs-literal {
+  color: #56b6c2;
 }
 
 /* Font settings plugin overrides */

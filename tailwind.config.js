@@ -110,8 +110,11 @@ module.exports = {
             "--tw-prose-headings": theme("colors.foreground"),
             "--tw-prose-links": theme("colors.primary.DEFAULT"),
             "--tw-prose-code": theme("colors.foreground"),
+            "--tw-prose-pre-code": theme("colors.foreground"),
+            "--tw-prose-pre-bg": theme("colors.muted.DEFAULT"),
             maxWidth: "none",
             code: {
+              color: theme("colors.foreground"),
               backgroundColor: theme("colors.muted.DEFAULT"),
               padding: "0.2em 0.4em",
               borderRadius: theme("borderRadius.sm"),
@@ -120,13 +123,17 @@ module.exports = {
             "code::before": { content: '""' },
             "code::after": { content: '""' },
             pre: {
+              color: theme("colors.foreground"),
               backgroundColor: theme("colors.muted.DEFAULT"),
               border: `1px solid ${theme("colors.border")}`,
               borderRadius: theme("borderRadius.lg"),
             },
             "pre code": {
+              color: "inherit",
               backgroundColor: "transparent",
               padding: "0",
+              fontWeight: "400",
+              fontSize: "inherit",
             },
             blockquote: {
               borderLeftColor: theme("colors.primary.DEFAULT"),
@@ -139,6 +146,20 @@ module.exports = {
             },
             "thead th": {
               backgroundColor: theme("colors.muted.DEFAULT"),
+            },
+          },
+        },
+        invert: {
+          css: {
+            "--tw-prose-pre-code": theme("colors.foreground"),
+            "--tw-prose-pre-bg": theme("colors.secondary.DEFAULT"),
+            pre: {
+              color: theme("colors.foreground"),
+              backgroundColor: theme("colors.secondary.DEFAULT"),
+            },
+            "pre code": {
+              color: "inherit",
+              backgroundColor: "transparent",
             },
           },
         },

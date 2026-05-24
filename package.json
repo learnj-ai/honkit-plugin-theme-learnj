@@ -12,6 +12,9 @@
   "scripts": {
     "build:css": "tailwindcss -i ./src/learnj.css -o ./_assets/website/learnj.css --minify",
     "build": "npm run build:css",
+    "example:install": "npm install --prefix example",
+    "example:serve": "npm run serve --prefix example",
+    "example:build": "npm run build --prefix example",
     "watch": "tailwindcss -i ./src/learnj.css -o ./_assets/website/learnj.css --watch",
     "prepublishOnly": "npm run build",
     "prepack": "npm run build"

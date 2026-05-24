@@ -44,7 +44,11 @@
 
         <div class="flex-1 overflow-y-auto py-3">
             {% block book_sidebar %}
-                {% block search_input %}{% endblock %}
+                {% block search_input %}
+                <div id="book-search-input" role="search">
+                    <input type="text" placeholder="{{ 'SEARCH_PLACEHOLDER'|t }}" />
+                </div>
+                {% endblock %}
                 {% block book_summary %}
                     {% include "website/summary.html" %}
                 {% endblock %}
@@ -60,11 +64,28 @@
                 <div class="flex-1 px-4 py-6 lg:px-8" tabindex="-1" role="main">
                     <div class="mx-auto max-w-4xl">
                         {% block search_results %}
-                            <article class="markdown-section prose prose-slate dark:prose-invert max-w-none">
-                            {% block page %}
-                                {{ page.content|safe }}
-                            {% endblock %}
-                            </article>
+                        <div id="book-search-results">
+                            <div class="search-noresults">
+                                <article class="markdown-section prose dark:prose-invert max-w-none">
+                                {% block page %}
+                                    {{ page.content|safe }}
+                                {% endblock %}
+                                </article>
+                            </div>
+                            <div class="search-results">
+                                <div class="has-results">
+                                    {% block search_has_results %}
+                                    <h1 class="search-results-title">{{ 'SEARCH_RESULTS_TITLE'|t|safe }}</h1>
+                                    <ul class="search-results-list"></ul>
+                                    {% endblock %}
+                                </div>
+                                <div class="no-results">
+                                    {% block search_no_results %}
+                                    <h1 class="search-results-title">{{ 'SEARCH_NO_RESULTS_TITLE'|t|safe }}</h1>
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
                         {% endblock %}
                     </div>
                 </div>

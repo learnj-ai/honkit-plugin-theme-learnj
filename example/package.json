@@ -1,0 +1,13 @@
+{
+  "name": "learnj-theme-example",
+  "private": true,
+  "description": "Example HonKit book showcasing honkit-plugin-theme-learnj",
+  "scripts": {
+    "build": "honkit build",
+    "serve": "honkit serve"
+  },
+  "devDependencies": {
+    "honkit": "^6.2.0",
+    "honkit-plugin-theme-learnj": "file:.."
+  }
+}

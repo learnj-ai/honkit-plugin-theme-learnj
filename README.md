@@ -8,6 +8,27 @@ LearnJ HonKit theme built with **Tailwind CSS** and **shadcn/ui** design tokens.
 npm install honkit-plugin-theme-learnj --save-dev
 ```
 
+## Live demo
+
+The [example book](example/) is published on every push to `main`:
+
+**https://learnj-ai.github.io/honkit-plugin-theme-learnj/**
+
+Run it locally:
+
+```bash
+npm run example:install
+npm run example:serve
+```
+
+See [example/getting-started/using-the-theme.md](example/getting-started/using-the-theme.md) for full setup instructions (also rendered in the demo site).
+
+### GitHub Pages
+
+1. In the repository, open **Settings → Pages**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+3. Push to `main`; the [pages workflow](.github/workflows/pages.yml) builds `example/` and deploys `example/_book`.
+
 ## Usage
 
 In your book's `book.json`:
@@ -16,10 +37,14 @@ In your book's `book.json`:
 {
   "plugins": [
     "-theme-default",
+    "-search",
+    "lunr",
+    "highlight",
     "theme-learnj"
   ],
   "pluginsConfig": {
     "theme-learnj": {
+      "logo": "https://raw.githubusercontent.com/learnj-ai/learnj/main/image.png",
       "logoText": "LearnJ Workshop",
       "githubUrl": "https://github.com/learnj-ai/workshops",
       "showLevel": false
@@ -39,6 +64,10 @@ Load `theme-learnj` **last** in the plugins array. Disable the default theme wit
 | `githubUrl` | string | GitHub link in sidebar footer |
 | `showLevel` | boolean | Show chapter level numbers in TOC |
 
+### Search
+
+Disable the default `search` plugin (`-search`) and enable `lunr`. The theme ships search UI and scripts (from [gitbook-plugin-search](https://github.com/GitbookIO/plugin-search), Apache-2.0) so custom themes avoid template inheritance conflicts.
+
 ## Development
 
 ```bash
@@ -55,6 +84,12 @@ To test locally in a HonKit book:
 npm link
 cd /path/to/your/book
 npm link honkit-plugin-theme-learnj
+```
+
+Or run the included example from this repository:
+
+```bash
+cd example && npm install && npm run serve
 ```
 
 ## shadcn / Tailwind
