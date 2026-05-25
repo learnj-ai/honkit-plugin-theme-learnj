@@ -26,6 +26,7 @@
   },
   "links": {
     "sidebar": {
+      "Slide deck": "slides/overview.html",
       "npm package": "https://www.npmjs.com/package/honkit-plugin-theme-learnj"
     }
   }

@@ -64,6 +64,10 @@ Load `theme-learnj` **last** in the plugins array. Disable the default theme wit
 | `githubUrl` | string | GitHub link in sidebar footer |
 | `showLevel` | boolean | Show chapter level numbers in TOC |
 
+### Slide decks (remark.js)
+
+Add [remark.js](https://remarkjs.com/) slide decks as static `slides/*.html` pages and link them from `links.sidebar` or from a Markdown page that points to the deck. See [example/getting-started/slides.md](example/getting-started/slides.md).
+
 ### Search
 
 Disable the default `search` plugin (`-search`) and enable `lunr`. The theme ships search UI and scripts (from [gitbook-plugin-search](https://github.com/GitbookIO/plugin-search), Apache-2.0) so custom themes avoid template inheritance conflicts.
