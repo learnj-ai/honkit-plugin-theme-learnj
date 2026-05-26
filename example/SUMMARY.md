@@ -7,7 +7,7 @@
 * [Using this theme](getting-started/using-the-theme.md)
 * [Local development](getting-started/local-development.md)
 * [Configuration](getting-started/configuration.md)
-* [Slide decks (remark.js)](getting-started/slides.md)
+* [Slide decks (reveal.js)](getting-started/slides.md)
 
 ## Showcase
 

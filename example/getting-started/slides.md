@@ -1,15 +1,15 @@
-# Slide decks (remark.js)
+# Slide decks (reveal.js)
 
-You can add **[remark.js](https://remarkjs.com/)** presentations alongside your HonKit book and link them from the sidebar or table of contents.
+You can add **[reveal.js](https://revealjs.com/)** presentations alongside your HonKit book and link them from the sidebar or table of contents.
 
-HonKit does not ship remark built in; you add static slide pages that load remark in the browser.
+HonKit does not ship reveal built in; you add static slide pages that load reveal in the browser.
 
 ## How it works
 
 1. Create a folder such as `slides/` in your book root.
-2. Add a **Markdown source** file with `---` between slides (remark syntax).
-3. Add an **HTML host** page that calls `remark.create({ sourceUrl: "your-deck.md" })`.
-4. Link the `.html` file from `SUMMARY.md` or `book.json` → `links.sidebar`.
+2. Add a **Markdown source** file with `---` between slides (reveal markdown syntax).
+3. Add an **HTML host** page that loads reveal.js with the **Dracula** theme and points at your `.md` file.
+4. Link the `.html` file from `links.sidebar` or from a Markdown page in `SUMMARY.md`.
 
 The [example deck](../slides/overview.html) in this repository demonstrates the pattern.
 
@@ -20,14 +20,14 @@ The [example deck](../slides/overview.html) in this repository demonstrates the 
 `SUMMARY.md`:
 
 ```markdown
-* [Slide decks (remark.js)](getting-started/slides.md)
+* [Slide decks (reveal.js)](getting-started/slides.md)
 ```
 
 On that page, link to the deck: `[Open slides](../slides/overview.html)`.
 
 HonKit copies `slides/overview.html` and `slides/overview.md` as static files when they are **not** listed in `SUMMARY.md`. Do **not** add `.html` files to `SUMMARY` — HonKit tries to parse them and the build fails.
 
-## Sidebar link (without TOC section)
+## Sidebar link
 
 ```json
 {
@@ -43,7 +43,7 @@ Paths are relative to the book root and resolve correctly in the built site.
 
 ## Authoring slides
 
-remark uses Markdown with slide separators:
+reveal uses Markdown with horizontal slide separators (`---` on its own line):
 
 ```markdown
 # Title slide
@@ -56,19 +56,36 @@ remark uses Markdown with slide separators:
 - Bullet two
 ```
 
-See the [remark Markdown wiki](https://github.com/gnab/remark/wiki/Markdown) for properties (`class:`, `countIncrementalSlides`, etc.), presenter mode (**P**), and clone display (**C**).
+Optional slide attributes use HTML comments, for example centered title slides:
 
-## Template
+```markdown
+<!-- .slide: class="title-slide" -->
 
-Copy `example/slides/overview.html` from this repo and adjust:
+# My title
+```
 
-- `sourceUrl` — path to your `.md` deck (same folder)
-- Back link — `href` to your book home (`../index.html` or similar)
+See the [reveal.js docs](https://revealjs.com/markdown/) for vertical slides (`--`), speaker notes (`Note:`), and plugins.
 
-The LearnJ theme stylesheet is optional on slide pages; the example loads `learnj.css` only for the top toolbar (back link + dark mode).
+## Theme (Dracula)
+
+The example deck loads:
+
+- `reveal.js/dist/theme/dracula.css` — presentation theme
+- highlight.js **base16/dracula** — code blocks inside slides
+
+Copy `example/slides/overview.html` and adjust `sourceUrl` / `data-markdown` paths and the back link as needed.
+
+## Keyboard shortcuts
+
+| Key | Action |
+| --- | --- |
+| ← → | Previous / next slide |
+| S | Speaker notes |
+| F | Fullscreen |
+| ? | Help overlay |
 
 ## Limitations
 
-- **No single Markdown file** becomes slides automatically; you maintain `.md` + `.html` pairs (or generate HTML in a build script).
-- The shadcnblocks [code-example6](https://www.shadcnblocks.com/block/code-example6) tabbed UI is React-only; remark decks are separate full-screen pages, not embedded in doc pages.
-- PDF export uses the browser print dialog (see [remark wiki](https://github.com/gnab/remark/wiki)).
+- Slide decks are **separate full-screen pages**, not embedded inside doc pages.
+- Do not list `.html` slide hosts in `SUMMARY.md`.
+- PDF export: use the browser print dialog or [decktape](https://github.com/astefanutti/decktape).

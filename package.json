@@ -1,6 +1,6 @@
 {
   "name": "honkit-plugin-theme-learnj",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "LearnJ HonKit theme — Tailwind CSS + shadcn/ui design system",
   "main": "./index.js",
   "files": [

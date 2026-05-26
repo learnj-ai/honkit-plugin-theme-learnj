@@ -1,12 +1,10 @@
-class: center, middle
+<!-- .slide: class="title-slide" -->
 
 # LearnJ Theme
 
 ### HonKit documentation with Tailwind + shadcn
 
-???
-
-Press **H** for help · **P** for presenter mode
+Note: Press **?** for keyboard shortcuts · **S** for speaker notes
 
 ---
 
@@ -39,13 +37,13 @@ npm run serve
 
 ## Links
 
-* [Back to documentation](../index.html)
-* [Theme on GitHub](https://github.com/learnj-ai/honkit-plugin-theme-learnj)
+- [Back to documentation](../index.html)
+- [Theme on GitHub](https://github.com/learnj-ai/honkit-plugin-theme-learnj)
 
 ---
 
-class: center, middle
+<!-- .slide: class="title-slide" -->
 
 # Questions?
 
-Documentation: **learnj-ai.github.io/honkit-plugin-theme-learnj**
+**learnj-ai.github.io/honkit-plugin-theme-learnj**
